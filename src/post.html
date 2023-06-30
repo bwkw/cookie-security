@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Post</title>
+</head>
+<body>
+    <form id="post" action="">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="body">Body:</label><br>
+        <textarea id="body" name="body"></textarea><br>
+        <input type="button" value="投稿" onclick="post()">
+        <p id="result"></p>
+    </form>
+    <script>
+      function post() {
+        const title = document.getElementById('title').value
+        const body = document.getElementById('body').value
+        const result = document.getElementById('result')
+
+        fetch('/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `title=${title}&body=${body}`,
+        })
+        .then((res) => {
+          console.log(res.status)
+          if (res.status === 201) {
+            result.innerHTML = '投稿に成功しました'
+          } else if (res.status === 401) {
+            window.location.href = '/login';
+          } else {
+            result.innerHTML = '投稿に失敗しました'
+          }
+        })
+        .catch((e) => {
+          result.innerHTML = e.message
+        })
+      }
+    </script>
+</body>
+</html>
