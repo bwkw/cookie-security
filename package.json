@@ -1,15 +1,18 @@
 {
-  "name": "http-cookie",
+  "name": "cookie-security",
   "version": "1.0.0",
-  "description": "http-cookie",
-  "main": "index.js",
+  "description": "cookie-security",
+  "main": "src/main.ts",
   "scripts": {
-    "dev": "tsc && node ./dist/server.js"
+    "dev": "ts-node-dev --respawn --transpile-only src/main.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.3.2",
+    "mysql2": "^3.4.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.5"
   }
 }

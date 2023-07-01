@@ -17,13 +17,16 @@ const server = () => {
         switch (req.method) {
           case 'GET':
             res.end('login');
-            return;
+            break
+          case 'POST':
+            // リクエスト情報からnameとpassword取得
+            // mysqlのデータと突き合わせ
+            res.setHeader('Content-Type', 'text/html');
+            res.setHeader('Set-Cookie', ['SessionId=bwkw; SameSite=None; Secure']);
+            res.writeHead(302, { 'Location': 'http://127.0.0.1:5500/src/post.html' });
+            res.end('login post');
+            break
         }
-        // リクエスト情報からnameとpassword取得
-        // mysqlのデータと突き合わせ
-        res.setHeader('Content-Type', 'text/html');
-        res.setHeader('Set-Cookie', ['SessionId=bwkw']);
-        res.end();
         break;
       case '/post':
         const parsedCookie = parseString(req.headers['cookie'] || '');
